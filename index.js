@@ -15,7 +15,7 @@ let signIn = document.getElementById('sign-in');
 if (signIn) {
 
     signIn.addEventListener('click', (event) => {
-        event.preventDefault();         //to prevent auto reloading...joss kintu
+        event.preventDefault();        
         if (userName.value === 'admin' && password.value == 'admin123') {
             window.location.href = 'all-cards.html'
         }
@@ -53,9 +53,10 @@ function switchTab(tab) {
 
 const spinner = document.getElementById('spinner');
 const container = document.getElementById('card-container');
+const search = document.getElementById('search-input')
+
 
 // search functionality
-const search = document.getElementById('search-input')
 
 if (search) {
     search.addEventListener('input', (e) => {
@@ -106,6 +107,7 @@ const displayAll = (all) => {
     if (countDisplay) {
         countDisplay.innerText = all.length
     }
+
     for (let one of all) {
 
         let labelsIcon = "";
@@ -122,7 +124,6 @@ const displayAll = (all) => {
                         ${label}
                     </span>`;
 
-
             }
         }
 
@@ -131,6 +132,7 @@ const displayAll = (all) => {
         const statusIcon = one.status === 'open' ? './assets/Open-Status.png' : './assets/Closed-Status.png';
         cardDiv.className = `bg-white shadow-sm p-4 rounded-b-lg flex flex-col justify-between ${borderColor}`;
         cardDiv.style.cursor = 'pointer';
+
         cardDiv.onclick = () => {
             loadIssueDetails(one.id);
         }
@@ -191,7 +193,7 @@ const loadIssueDetails = (id) => {
                         <p class="font-bold text-[#1f2937]">${data.author}</p>
                     </div>
                     <div>
-                        <p class="text-xs font-bold text-gray-400">Priority</p>
+                        <p class="font-bold text-gray-400">Priority</p>
                         <span class="inline-block rounded bg-red-500 p-1 text-white">${data.priority}</span>
                     </div>
                 </div>
