@@ -130,6 +130,10 @@ const displayAll = (all) => {
         const borderColor = one.status === 'open' ? 'border-t-4 border-t-[#00a96e]' : 'border-t-4 border-t-[#a855f7]';
         const statusIcon = one.status === 'open' ? './assets/Open-Status.png' : './assets/Closed-Status.png';
         cardDiv.className = `bg-white shadow-sm p-4 rounded-b-lg flex flex-col justify-between ${borderColor}`;
+        cardDiv.style.cursor='pointer';
+        cardDiv.onclick = ()=>{
+            loadIssueDetails(one.id);
+        }
 
         cardDiv.innerHTML = `
     <div class>
@@ -160,4 +164,40 @@ const displayAll = (all) => {
     }
 
 }
-switchTab(currentTab)
+
+// modal
+const loadIssueDetails = (id)=>{
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    .then(res =>(res.json()))
+    .then(json=>{
+        const data = json.data;
+        const info = document.getElementById('modal-info');
+        info.innerHTML = `
+        <h3 class="text-2xl font-bold mb-2">${data.title}</h3>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="bg-[#00a96eFF] text-white px-3 py-1 rounded-full text-[12px] font-bold">${data.status}</span>
+                    <span class="text-[#64748b] text-sm">. Opened by ${data.author} . ${new Date(data.createdAt).toLocaleDateString()}</span>
+                </div>
+                
+                <div class="flex gap-2 mb-4">
+                    ${data.labels.map(l => `<span class=" border px-2 py-1 rounded-lg text-[10px] bg-yellow-200 ">${l}</span>`).join('')}
+                </div>
+
+                <p class="text-[#64748b] mb-6">${data.description}</p>
+
+                <div class="grid grid-cols-2 gap-4 bg-[#f8fafc] p-4 rounded-lg">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 ">Assignee:</p>
+                        <p class="font-bold text-[#1f2937]">${data.author}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-400">Priority</p>
+                        <span class="inline-block rounded bg-red-500 p-1 text-white">${data.priority}</span>
+                    </div>
+                </div>
+            `;
+
+            my_modal_1.showModal();
+    })
+}
+switchTab(currentTab);
