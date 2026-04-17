@@ -53,6 +53,31 @@ function switchTab(tab) {
 
 const spinner = document.getElementById('spinner');
 const container = document.getElementById('card-container');
+
+// search functionality
+const search = document.getElementById('search-input')
+
+if(search){
+    search.addEventListener('input',(e)=>{
+        const text = e.target.value;
+       
+        if(text.trim()==''){
+            allIssues('all')
+            return;
+        }
+         spinner.classList.remove('hidden')
+        container.classList.add('hidden');
+        fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
+        .then(res=>(res.json()))
+        .then(json=>{
+            displayAll(json.data)
+            spinner.classList.add('hidden');
+            container.classList.remove('hidden');
+        }
+        )
+    })
+}
+
 // all issues api
 const allIssues = (status = 'all') => {
 
