@@ -57,24 +57,24 @@ const container = document.getElementById('card-container');
 // search functionality
 const search = document.getElementById('search-input')
 
-if(search){
-    search.addEventListener('input',(e)=>{
+if (search) {
+    search.addEventListener('input', (e) => {
         const text = e.target.value;
-       
-        if(text.trim()==''){
+
+        if (text.trim() == '') {
             allIssues('all')
             return;
         }
-         spinner.classList.remove('hidden')
+        spinner.classList.remove('hidden')
         container.classList.add('hidden');
         fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
-        .then(res=>(res.json()))
-        .then(json=>{
-            displayAll(json.data)
-            spinner.classList.add('hidden');
-            container.classList.remove('hidden');
-        }
-        )
+            .then(res => (res.json()))
+            .then(json => {
+                displayAll(json.data)
+                spinner.classList.add('hidden');
+                container.classList.remove('hidden');
+            }
+            )
     })
 }
 
@@ -130,19 +130,19 @@ const displayAll = (all) => {
         const borderColor = one.status === 'open' ? 'border-t-4 border-t-[#00a96e]' : 'border-t-4 border-t-[#a855f7]';
         const statusIcon = one.status === 'open' ? './assets/Open-Status.png' : './assets/Closed-Status.png';
         cardDiv.className = `bg-white shadow-sm p-4 rounded-b-lg flex flex-col justify-between ${borderColor}`;
-        cardDiv.style.cursor='pointer';
-        cardDiv.onclick = ()=>{
+        cardDiv.style.cursor = 'pointer';
+        cardDiv.onclick = () => {
             loadIssueDetails(one.id);
         }
 
         cardDiv.innerHTML = `
-    <div class>
-      <div class="flex justify-between items-center">
+       <div class>
+          <div class="flex justify-between items-center">
       
         <img class="" src="${statusIcon}" alt="">
         <p class="priority w-20 bg-[#feecec] text-center rounded-2xl p-1">
         <span class="text-[#ef4444] text-[12px]">${one.priority}</span></p>
-      </div>
+        </div>
 
       <div class="mt-2">
         <h3 class="font-semibold text-[14px] mb-2">${one.title}</h3>
@@ -166,13 +166,13 @@ const displayAll = (all) => {
 }
 
 // modal
-const loadIssueDetails = (id)=>{
+const loadIssueDetails = (id) => {
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
-    .then(res =>(res.json()))
-    .then(json=>{
-        const data = json.data;
-        const info = document.getElementById('modal-info');
-        info.innerHTML = `
+        .then(res => (res.json()))
+        .then(json => {
+            const data = json.data;
+            const info = document.getElementById('modal-info');
+            info.innerHTML = `
         <h3 class="text-2xl font-bold mb-2">${data.title}</h3>
                 <div class="flex items-center gap-2 mb-4">
                     <span class="bg-[#00a96eFF] text-white px-3 py-1 rounded-full text-[12px] font-bold">${data.status}</span>
@@ -198,6 +198,6 @@ const loadIssueDetails = (id)=>{
             `;
 
             my_modal_1.showModal();
-    })
+        })
 }
 switchTab(currentTab);

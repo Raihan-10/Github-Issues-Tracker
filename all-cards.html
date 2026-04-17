@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
   <!-- <link rel="stylesheet" href="./all-cards.html"> -->
   <style>
     .font {
@@ -26,22 +27,25 @@
 </head>
 
 <body class="bg-[#f8fafcFF] min-h-screen font">
+
   <!-- navbar -->
   <section class="bg-white">
-    <div class="navbar flex justify-between shadow-sm px-20">
+    <div class="navbar flex flex-col md:flex-row justify-between shadow-sm md:px-20 gap-3 py-4">
       <div class="logo flex flex-row items-center gap-1 ">
-        <img src="./assets/github-logo.png" class="w-9" alt="">
-        <h2 class="text-[#1f2937] leading-[1.2] text-2xl font-semibold">GitHub Issues Tracker</h2>
+        <img src="./assets/github-logo.png" class="md:w-9 w-8" alt="">
+        <h2 class="text-[#1f2937] leading-[1.2] text-lg md:text-2xl font-semibold cursor-pointer"><a href="./index.html">Issues Tracker</a> </h2>
       </div>
+
       <!-- search -->
-      <div class="search flex items-center gap-3">
-        <div class="relative flex items-center">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 text-[#64748b] text-lg"></i>
+      <div class="search flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+        <div class="relative flex items-center w-full">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 text-[#64748b]md: text-lg"></i>
           <input id="search-input" type="text" placeholder="Search issues..."
-            class="border border-[#e4e4e7] rounded-lg w-[450px] py-3 pl-12 pr-4 text-[#64748b]">
+            class="border border-[#e4e4e7] rounded-lg w-full lg:w-[450px] py-3 pl-12 pr-4 text-[#64748b]">
         </div>
 
-        <button class="cursor-pointer bg-[#4a00ff] text-white px-4 py-3 rounded-lg flex items-center font-semibold text-[16px]">
+        <button
+          class="cursor-pointer bg-[#4a00ff] text-white px-4 py-3 rounded-lg flex items-center font-semibold text-[16px] sm:w-auto whitespace-nowrap">
           <span class="mr-1 text-xl ">+</span> New Issue
         </button>
       </div>
@@ -49,25 +53,25 @@
   </section>
 
   <!-- left right padding -->
-  <section class="max-w-[1110px] mx-auto bg-[#fbfbfb]">
+  <section class="max-w-[1110px] mx-auto bg-[#fbfbfb] ">
 
     <!-- status button -->
-    <section class="card  bg-white mt-[60px] flex flex-row space-x-2 p-6">
+    <section class="card  bg-white mt-8 md:mt-[60px] flex md:flex-row justify-center md:justify-start gap-2 p-4 md:p-6 shadow-md">
       <button onclick="switchTab('all')" id="all-btn"
-        class="cursor-pointer w-[120px] rounded-sm text-white py-2 px-3 bg-[#4a00ff]">All</button>
+        class="cursor-pointer flex-1 sm:flex-none min-w-[100px] rounded-sm text-white py-2 px-3 bg-[#4a00ff]">All</button>
       <button onclick="switchTab('open')" id="open-btn"
-        class="cursor-pointer w-[120px] rounded-sm py-2 px-3 border border-[#e4e4e7]">Open</button>
+        class="cursor-pointer flex-1 sm:flex-none min-w-[100px] rounded-sm text-white py-2 px-3 border-[#e4e4e7]">Open</button>
       <button onclick="switchTab('closed')" id="closed-btn"
-        class="cursor-pointer w-[120px] rounded-sm py-2 px-3 border border-[#e4e4e7]">Closed</button>
+        class="cursor-pointer flex-1 sm:flex-none min-w-[100px] rounded-sm text-white py-2 px-3 border-[#e4e4e7]">Closed</button>
     </section>
 
 
     <section id="issues-container"
-      class=" bg-white flex flex-row justify-between p-6 mt-4 rounded-t-2xl rounded-tr-2xl shadow-sm ">
+      class=" bg-white flex flex-col gap-8 md:flex-row justify-between p-6 mt-4 rounded-t-2xl rounded-tr-2xl shadow-sm ">
 
       <!-- All status -->
       <div class="flex gap-2">
-        <img class="w-[50px]" src="./assets/Aperture.png" alt="">
+        <img class="w-6 h-7 md:w-10 md:h-10" src="./assets/Aperture.png" alt="">
         <div class="issues flex flex-col justify-center">
           <p class="text-[20px] font-semibold text-[#1f2937]"><span id="count"></span> Issues</p>
           <p class="text-[16px] leading-[1.2] font-normal text-[#64748b]">Track and manage your project issues</p>
@@ -93,46 +97,19 @@
   <!-- card -->
   <section id="card-container"
     class="max-w-[1110px] mx-auto mt-4 grid grid-cols-1 md:grid-cols-3 shadow-lg mb-5 bg-[#fbfbfb] gap-6 p-6">
-
-    <!-- <section class="w-[256px] bg-white h-full mt-1 p-4">
-         <div class="flex justify-between">
-           <img class="w-6 h-full" src="./assets/Open-Status.png" alt="">
-        <p class="priority w-20 bg-[#feecec] text-center rounded-2xl p-1"><span class="text-[#ef4444] text-[12px]">HIGH</span></p>
-      </div>
-      
-      <div class="">
-        <h3 class="font-semibold text-[14px] mb-2">Fix navigation menu on mobile devices</h3>
-        <p class="text-[12px] text-[#64748B]">The navigation menu doesn't collapse properly on mobile devices...</p>
-        <div class="label flex items-center gap-5 rounded-2xl mt-3">
-          <span class=" bg-[#feecec] flex rounded-xl border px-2 py-1 border-[#fecaca] gap-2">
-            <img class="w-3" src="./assets/bug.png" alt=""><span
-              class="text-[12px] font-medium text-[#ef4444]">BUG</span></span>
-          <span class="bg-[#FFF8DB] flex items-center gap-1 border border-[#FDE68A] rounded-lg px-2">
-            <img class="w-4 h-4" src="./assets/help.png" alt=""><span class="">HELP WANTED</span></span>
-        </div>
-      </div>
-
-      <div class="mt-3 text-[#64748B] text-[12px] border-t border-t-[#64748B] pt-2 flex flex-col gap-1">
-        
-        <p class="">#1 by john_doe</p>
-        <p>1/15/2024</p>
-      </div>
-  
-    </section> -->
   </section>
 
   <!-- modal -->
-<!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
-<dialog id="my_modal_1" class="modal">
-  <div class="modal-box">
-    <div id="modal-info"></div>
-    <div class="modal-action">
-      <form method="dialog">
-        <button class="btn">Close</button>
-      </form>
+  <dialog id="my_modal_1" class="modal">
+    <div class="modal-box max-2xl">
+      <div id="modal-info"></div>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">Close</button>
+        </form>
+      </div>
     </div>
-  </div>
-</dialog>
+  </dialog>
 
 
   <script src="./index.js"></script>
